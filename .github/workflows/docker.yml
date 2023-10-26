@@ -27,6 +27,12 @@ jobs:
     -
       name: Run go tests
       working-directory: ./db-service
+      env:
+        DB_USER: postgres
+        DB_PASSWORD: test
+        DB_HOST: localhost
+        DB_NAME: postgres
+
       run: go test ./...
 
     #- name: Build Application

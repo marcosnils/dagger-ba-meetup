@@ -16,7 +16,7 @@ jobs:
 
     - name: Start Database Service
       run: |
-        docker-compose -f ./db-service/docker-compose.yml up -d
+        docker-compose  up -d
       working-directory: ./db-service
 
     -

@@ -27,8 +27,10 @@ func main() {
 	// Project to test
 	src := client.Host().Directory(".")
 
+	gobase := client.Container().From("golang:1.21")
+
 	// Run application tests
-	out, err := client.Container().From("golang:1.20").
+	out, err := gobase.
 		WithServiceBinding("db", database.AsService()). // bind database with the name db
 		WithEnvVariable("DB_HOST", "db").               // db refers to the service binding
 		WithEnvVariable("DB_PASSWORD", "test").         // password set in db container

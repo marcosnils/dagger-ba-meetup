@@ -1,0 +1,40 @@
+
+name: 'docker'
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Start Database Service
+      run: |
+        docker-compose -f ./db-service/docker-compose.yml up -d
+      working-directory: ./db-service
+
+    -
+      name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '>=1.21'
+    -
+      name: Run go tests
+      working-directory: ./db-service
+      run: go test ./...
+
+    #- name: Build Application
+      #run: |
+        #docker build -t ttl.sh/dagger-ba-meetup:latest .
+      #working-directory: ./db-service
+
+    #- name: Push Application Docker Image
+      #run: |
+        #docker push ttl.sh/dagger-ba-meetup
+
